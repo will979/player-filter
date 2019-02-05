@@ -1,0 +1,14 @@
+### Join Player name and postion for vlookup
+join.name.pos <- unite(name.pos.filter,"combinename", "Nickname", "Position", sep = "(")  # I added a left parenthesis here so I could combine both values and then split them after the filter function.
+
+
+### Seperate name from postion for vlookup
+unique.player.pos <- unique(join.name.pos)
+unique.player.pos.1 <- unique.player.pos
+unique.player.pos.1 <- unique.player.pos.1 %>% filter(combinename != "Tobias Harris(SF")  #filters out players that have played different 
+unique.player.pos.1 <- unique.player.pos.1 %>% filter(combinename != "Julius Randle(PF")  #over their career.  need to find a better way to
+unique.player.pos.1 <- unique.player.pos.1 %>% filter(combinename != "JJ Redick(SF")      #deal with it instead of hard coding it. 
+unique.player.pos.1 <- unique.player.pos.1 %>% filter(combinename != "Jeff Green(SF")
+
+vlookup.player.pos <- unique.player.pos.1 %>% separate(.,combinename, c("Nickname","Position"), sep = "\\(") #seperate players and positions
+View(vlookup.player.pos)
